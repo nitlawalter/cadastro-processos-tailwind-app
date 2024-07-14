@@ -1,8 +1,48 @@
 <main class="bg-zinc-800 text-slate-200 flex-1 px-6 py-4">
 
   <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
-    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-slate-400">Lista de Processos</h1>
+    <h1 class="!sm:text-3xl !text-2xl !font-medium !title-font !mb-2 !text-slate-400">Lista de Processos</h1>
     <div class="h-1 w-20 bg-indigo-500 rounded"></div>
+  </div>
+
+  <div class="min-h-lvh">
+    <mat-card class="!bg-zinc-200">
+      <table mat-table [dataSource]="dataSource" class="!bg-zinc-300">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="weight">
+          <th mat-header-cell *matHeaderCellDef> Weight </th>
+          <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="symbol">
+          <th mat-header-cell *matHeaderCellDef> Symbol </th>
+          <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons
+                     aria-label="Select page of periodic elements"
+                     class="!bg-zinc-300 !font-medium">
+      </mat-paginator>
+    </mat-card>
   </div>
 
 </main>
