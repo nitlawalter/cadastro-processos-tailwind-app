@@ -1,10 +1,13 @@
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { ProcessoService } from '../../services/processo.service';
+import { ModalVisualizacaoComponent } from '../modal-visualizacao/modal-visualizacao.component';
+
 
 @Component({
   selector: 'app-processos-list',
@@ -20,7 +23,10 @@ export class ProcessosListComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null;
 
-  constructor(private processoService: ProcessoService) {}
+  constructor(
+    private processoService: ProcessoService,
+    public dialog: MatDialog
+  ) {}
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -32,12 +38,23 @@ export class ProcessosListComponent implements AfterViewInit {
     });
   }
 
-  edit(obj: any) {
+  editar(obj: any) {
     console.log('edit');
   }
 
-  delete(obj: any) {
+  deletar(obj: any) {
     console.log('delete');
+  }
+
+  visualizar(obj: any) {
+    console.log('view');
+    this.dialog.open(ModalVisualizacaoComponent,
+      {
+        data: obj,
+        width: '900px',
+        height: '600px'
+      }
+    );
   }
 
 }
