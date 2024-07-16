@@ -1,11 +1,12 @@
-<main class="bg-zinc-800 text-slate-200 flex-1 px-6 py-4">
+<div class="flex w-full flex-auto justify-center sm:p-6 md:p-8">
+<main class="bg-default flex w-full flex-auto flex-col sm:max-w-360 sm:overflow-hidden sm:rounded-lg sm:shadow-lg">
 
   <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
     <h1 class="!sm:text-3xl !text-2xl !font-medium !title-font !mb-2 !text-slate-400">Lista de Processos</h1>
     <div class="h-1 w-20 bg-indigo-500 rounded"></div>
   </div>
 
-  <div class="min-h-lvh">
+  <div class="mt-2">
     <mat-card class="!bg-zinc-200">
       <table mat-table [dataSource]="dataSource" class="!bg-zinc-300">
 
@@ -37,7 +38,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+      <mat-paginator [pageSizeOptions]="[5, 10]"
                      showFirstLastButtons
                      aria-label="Select page of periodic elements"
                      class="!bg-zinc-300 !font-medium">
@@ -46,3 +47,4 @@
   </div>
 
 </main>
+</div>
