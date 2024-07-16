@@ -4,6 +4,7 @@ import { MatIcon } from '@angular/material/icon';
 
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import { ProcessoService } from '../../services/processo.service';
 
 @Component({
   selector: 'app-processos-list',
@@ -14,12 +15,21 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 })
 export class ProcessosListComponent implements AfterViewInit {
   displayedColumns: string[] = ['npu', 'dataCadastro', 'uf', 'acoes'];
-  dataSource = new MatTableDataSource<Processo>(ELEMENT_DATA);
+  //dataSource = new MatTableDataSource<Processo>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<Processo>();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null;
 
-  ngAfterViewInit() {
+  constructor(private processoService: ProcessoService) {}
+
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+
+  ngOnInit() {
+    this.processoService.getProcessos().subscribe((processos) => {
+      this.dataSource.data = processos;
+    });
   }
 
   edit(obj: any) {
