@@ -6,11 +6,12 @@ import { MatCard } from '@angular/material/card';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-modal-visualizacao',
   standalone: true,
-  imports: [MatCard, MatDialogContent, MatDialogTitle, MatFormField, MatDividerModule,
+  imports: [MatCard, MatDialogContent, MatDialogTitle, MatFormField, MatDividerModule, DatePipe,
     FormsModule, MatDialogActions, MatFormFieldModule, MatInputModule, MatDialogClose],
   templateUrl: './modal-visualizacao.component.html',
   styleUrl: './modal-visualizacao.component.scss'

@@ -7,12 +7,13 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { ProcessoService } from '../../services/processo.service';
 import { ModalVisualizacaoComponent } from '../modal-visualizacao/modal-visualizacao.component';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-processos-list',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatCardModule, MatIcon],
+  imports: [MatTableModule, MatPaginatorModule, MatCardModule, MatIcon, DatePipe],
   templateUrl: './processos-list.component.html',
   styleUrl: './processos-list.component.scss'
 })

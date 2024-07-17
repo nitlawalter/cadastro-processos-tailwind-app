@@ -1,16 +1,16 @@
 <section class="text-gray-900">
   <div class="container px-5 py-10 mx-auto flex flex-col items-center">
-    <div class="border-2 border-b-gray-900 w-full justify-center">
-      <h6 class="text-slate-800 font-medium">Visualização do Processo</h6>
-    </div>
+
+    <h6 class="text-slate-800 font-medium">Visualização do Processo</h6>
+
     <form class="flex flex-col w-full py-6">
       <mat-form-field class="w-full">
         <mat-label class="text-zinc-900">Data de Cadastro</mat-label>
-        <input matInput disabled value="{{processo.dataCadastro}}">
+        <input matInput disabled value="{{processo.dataCadastro | date:'dd/MM/yyyy'}}">
       </mat-form-field>
       <mat-form-field class="w-full">
         <mat-label class="text-zinc-900">Data de Visualização</mat-label>
-        <input matInput disabled value="{{processo.dataVisualizacao}}">
+        <input matInput disabled value="{{processo.dataVisualizacao | date:'dd/MM/yyyy'}}">
       </mat-form-field>
       <mat-form-field class="w-full">
         <mat-label class="text-zinc-900">NPU</mat-label>
