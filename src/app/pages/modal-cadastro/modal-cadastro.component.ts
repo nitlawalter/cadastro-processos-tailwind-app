@@ -5,12 +5,24 @@ import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle, MatDia
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DatePipe } from '@angular/common';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 
 @Component({
   selector: 'app-modal-cadastro',
   standalone: true,
-  imports: [MatDialogContent, MatDialogTitle, MatFormField, DatePipe,
-    FormsModule, MatDialogActions, MatFormFieldModule, MatInputModule, MatDialogClose],
+  imports: [
+    MatDialogContent,
+    MatDialogTitle,
+    MatFormField,
+    DatePipe,
+    FormsModule,
+    MatDialogActions,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogClose,
+    NgxMaskDirective,
+    NgxMaskPipe
+  ],
   templateUrl: './modal-cadastro.component.html',
   styleUrl: './modal-cadastro.component.scss'
 })

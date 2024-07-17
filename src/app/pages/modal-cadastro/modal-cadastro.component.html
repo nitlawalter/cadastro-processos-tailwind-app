@@ -6,7 +6,7 @@
     <form class="flex flex-col w-full py-6">
       <mat-form-field class="w-full">
         <mat-label class="text-zinc-900">Data de Cadastro</mat-label>
-        <input matInput value="{{processo.dataCadastro | date:'dd/MM/yyyy'}}">
+        <input matInput value="{{processo.dataCadastro | date:'dd/MM/yyyy'}}" [mask]="'00/00/0000'" placeholder="dd/MM/yyyy">
       </mat-form-field>
       <mat-form-field class="w-full">
         <mat-label class="text-zinc-900">Data de Visualização</mat-label>
@@ -14,7 +14,7 @@
       </mat-form-field>
       <mat-form-field class="w-full">
         <mat-label class="text-zinc-900">NPU</mat-label>
-        <input matInput value="{{processo.npu}}">
+        <input matInput value="{{processo.npu}}" mask="0000000-00.0000.0.00.0000" [showMaskTyped]="true">
       </mat-form-field>
       <mat-form-field class="w-full">
         <mat-label class="text-zinc-900">Município</mat-label>
