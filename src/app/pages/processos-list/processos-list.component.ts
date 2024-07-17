@@ -8,6 +8,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { ProcessoService } from '../../services/processo.service';
 import { ModalVisualizacaoComponent } from '../modal-visualizacao/modal-visualizacao.component';
 import { DatePipe } from '@angular/common';
+import { ModalCadastroComponent } from '../modal-cadastro/modal-cadastro.component';
 
 
 @Component({
@@ -40,7 +41,13 @@ export class ProcessosListComponent implements AfterViewInit {
   }
 
   editar(obj: any) {
-    console.log('edit');
+    this.dialog.open(ModalCadastroComponent,
+      {
+        data: obj,
+        width: '900px',
+        height: '600px'
+      }
+    )
   }
 
   deletar(obj: any) {
@@ -48,7 +55,6 @@ export class ProcessosListComponent implements AfterViewInit {
   }
 
   visualizar(obj: any) {
-    console.log('view');
     this.dialog.open(ModalVisualizacaoComponent,
       {
         data: obj,

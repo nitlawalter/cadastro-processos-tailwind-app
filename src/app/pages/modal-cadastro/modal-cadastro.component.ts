@@ -7,19 +7,19 @@ import { MatInputModule } from '@angular/material/input';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-modal-visualizacao',
+  selector: 'app-modal-cadastro',
   standalone: true,
   imports: [MatDialogContent, MatDialogTitle, MatFormField, DatePipe,
     FormsModule, MatDialogActions, MatFormFieldModule, MatInputModule, MatDialogClose],
-  templateUrl: './modal-visualizacao.component.html',
-  styleUrl: './modal-visualizacao.component.scss'
+  templateUrl: './modal-cadastro.component.html',
+  styleUrl: './modal-cadastro.component.scss'
 })
-export class ModalVisualizacaoComponent {
+export class ModalCadastroComponent {
 
   processo!: Processo;
 
   constructor(
-    public dialogRef: MatDialogRef<ModalVisualizacaoComponent>,
+    public dialogRef: MatDialogRef<ModalCadastroComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Processo
   ) {
     this.processo = data;

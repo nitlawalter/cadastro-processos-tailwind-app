@@ -1,0 +1,35 @@
+<section class="text-gray-900">
+  <div class="container px-5 py-10 mx-auto flex flex-col items-center">
+
+    <h6 class="text-slate-800 font-medium">Cadastro de Processo</h6>
+
+    <form class="flex flex-col w-full py-6">
+      <mat-form-field class="w-full">
+        <mat-label class="text-zinc-900">Data de Cadastro</mat-label>
+        <input matInput value="{{processo.dataCadastro | date:'dd/MM/yyyy'}}">
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label class="text-zinc-900">Data de Visualização</mat-label>
+        <input matInput disabled value="{{processo.dataVisualizacao | date:'dd/MM/yyyy'}}">
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label class="text-zinc-900">NPU</mat-label>
+        <input matInput value="{{processo.npu}}">
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label class="text-zinc-900">Município</mat-label>
+        <input matInput value="{{processo.municipio}}">
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label class="text-zinc-900">Estado</mat-label>
+        <input matInput value="{{processo.uf}}">
+      </mat-form-field>
+    </form>
+    <div class="flex flex-row w-full space-x-2">
+      <button mat-button class="bg-blue-900 p-2 text-slate-200 rounded hover:bg-blue-600"
+         mat-dialog-close (onclick)="closeModal()">Salvar</button>
+      <button mat-button class="bg-blue-900 p-2 text-slate-200 rounded hover:bg-blue-600"
+         mat-dialog-close (onclick)="closeModal()">Fechar</button>
+    </div>
+  </div>
+</section>
