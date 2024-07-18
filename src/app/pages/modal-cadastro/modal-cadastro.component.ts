@@ -40,6 +40,7 @@ export class ModalCadastroComponent {
   municipios: any[] = [];
   isEditMode: boolean = false;
   selectedFile: File | null = null;
+  attachedFileName: string | null = null;
 
   constructor(
     private localidadeService: LocalidadeService,
@@ -61,6 +62,7 @@ export class ModalCadastroComponent {
       this.loadMunicipios(this.data.processo.uf);
       this.formProcesso.get('dataCadastro')?.disable();
       this.formProcesso.get('dataVisualizacao')?.disable();
+      this.attachedFileName = 'documento.pdf'; // Assumindo que o nome do arquivo é sempre 'documento.pdf'
     } else {
       this.formProcesso.get('dataCadastro')?.disable();
       this.formProcesso.get('dataVisualizacao')?.disable();
