@@ -28,6 +28,7 @@ export class ProcessoService {
   }
 
   updateProcesso(processo: Processo): Observable<Processo> {
+    console.log('updateProcesso =>', processo);
     return this.http.put<Processo>(`${this.apiUrl}/${processo.id}`, processo, {
       headers: { 'Content-Type': 'application/json' }
      });
@@ -38,7 +39,7 @@ export class ProcessoService {
   }
 
   updateDataVisualizacao(id: number): Observable<Processo> {
-    return this.http.put<Processo>(`${this.apiUrl}/${id}/visualizacao`, {
+    return this.http.put<Processo>(`${this.apiUrl}/${id}/visualizacao`, {}, {
       headers: { 'Content-Type': 'application/json' }
     });
   }

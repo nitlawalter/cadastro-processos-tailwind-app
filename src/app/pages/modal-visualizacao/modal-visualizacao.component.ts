@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle, MatDia
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DatePipe } from '@angular/common';
+import { ProcessoService } from '../../services/processo.service';
 
 @Component({
   selector: 'app-modal-visualizacao',
@@ -20,10 +21,27 @@ export class ModalVisualizacaoComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ModalVisualizacaoComponent>,
+    private processoService: ProcessoService,
     @Inject(MAT_DIALOG_DATA) public data: Processo
   ) {
     this.processo = data;
     console.log('Dados do processo: ', data);
+  }
+
+  ngOnInit(): void {
+    console.log('Modal de visualização', this.processo);
+    if (this.processo.id !== undefined) {
+      this.processoService.updateDataVisualizacao(this.processo.id).subscribe(
+        response => {
+          console.log('Data de visualização atualizada com sucesso:', response);
+          this.processo = response;
+        },
+        error => {
+          console.error('Erro ao atualizar a data de visualização:', error);
+        }
+      );
+    }
+
   }
 
   closeModal(): void {

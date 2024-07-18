@@ -1,5 +1,5 @@
 import { LocalidadeService } from './../../services/localidade.service';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, Inject, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Processo } from '../../model/processo/processo.model';
 import { MAT_DIALOG_DATA, MatDialogContent, MatDialogRef, MatDialogTitle, MatDialogActions, MatDialogClose } from '@angular/material/dialog';
@@ -38,27 +38,46 @@ export class ModalCadastroComponent {
   formProcesso!: FormGroup;
   estados: any[] = [];
   municipios: any[] = [];
+  isEditMode: boolean = false;
 
   constructor(
     private localidadeService: LocalidadeService,
     private processoService: ProcessoService,
     public dialogRef: MatDialogRef<ModalCadastroComponent>,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {}
 
   ngOnInit() {
     this.buildForm();
     this.loadEstados();
+
+    if (this.data && this.data.processo) {
+      console.log('Editando processo:', this.data);
+      this.isEditMode = true;
+      this.formProcesso.patchValue(this.data.processo);
+      this.loadMunicipios(this.data.processo.uf);
+      this.formProcesso.get('dataCadastro')?.disable();
+      this.formProcesso.get('dataVisualizacao')?.disable();
+    }
+
   }
 
   buildForm() {
     this.formProcesso = this.formBuilder.group({
+      id: [null],
       npu: ['', [Validators.required]],
       dataCadastro: ['', Validators.required],
+      dataVisualizacao: ['', null],
       municipio: ['', Validators.required],
       uf: ['', Validators.required]
     });
+
+    this.formProcesso.get('uf')?.valueChanges.subscribe(value => {
+      this.loadMunicipios(value);
+    });
+
   }
 
   loadEstados(): void {
@@ -87,25 +106,49 @@ export class ModalCadastroComponent {
     if (this.formProcesso.valid) {
       const processo = this.formProcesso.value;
       processo.npu = this.formatNpu(processo.npu);
-      this.processoService.createProcesso(processo).subscribe(
-        response => {
-          console.log('Processo salvo com sucesso:', response);
-          this.snackBar.open('Cadastro realizado com sucesso!', 'Fechar', {
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-            duration: 3000,
-          });
-          this.dialogRef.close(true);
-        },
-        error => {
-          console.error('Erro ao salvar o processo:', error);
-          this.snackBar.open('Erro ao salvar o processo', 'Fechar', {
-            horizontalPosition: 'right',
-            verticalPosition: 'top',
-            duration: 3000,
-          });
-        }
-      );
+      console.log('Salvando processo:', processo);
+      console.log('Modo edição:', this.isEditMode);
+      if(this.isEditMode) {
+        this.processoService.updateProcesso(processo).subscribe(
+          response => {
+            console.log('Processo atualizado com sucesso:', response);
+            this.snackBar.open('Cadastro atualizado com sucesso!', 'Fechar', {
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              duration: 3000,
+            });
+            this.dialogRef.close(true);
+          },
+          error => {
+            console.error('Erro ao atualizar o processo:', error);
+            this.snackBar.open('Erro ao atualizar o cadastro', 'Fechar', {
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              duration: 3000,
+            });
+          }
+        );
+      } else {
+        this.processoService.createProcesso(processo).subscribe(
+          response => {
+            console.log('Processo salvo com sucesso:', response);
+            this.snackBar.open('Cadastro realizado com sucesso!', 'Fechar', {
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              duration: 3000,
+            });
+            this.dialogRef.close(true);
+          },
+          error => {
+            console.error('Erro ao salvar o processo:', error);
+            this.snackBar.open('Erro ao salvar o processo', 'Fechar', {
+              horizontalPosition: 'right',
+              verticalPosition: 'top',
+              duration: 3000,
+            });
+          }
+        );
+      }
     }
   }
 

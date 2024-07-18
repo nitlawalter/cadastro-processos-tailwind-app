@@ -45,9 +45,9 @@ export class ProcessosListComponent implements AfterViewInit {
   }
 
   editar(obj: any) {
-    this.dialog.open(ModalEditarComponent,
+    this.dialog.open(ModalCadastroComponent,
       {
-        data: obj,
+        data: {processo: obj},
         width: '900px',
         height: '600px'
       }
