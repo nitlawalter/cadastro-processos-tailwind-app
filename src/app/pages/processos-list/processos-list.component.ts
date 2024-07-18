@@ -9,7 +9,6 @@ import { ProcessoService } from '../../services/processo.service';
 import { ModalVisualizacaoComponent } from '../modal-visualizacao/modal-visualizacao.component';
 import { DatePipe } from '@angular/common';
 import { ModalCadastroComponent } from '../modal-cadastro/modal-cadastro.component';
-import { ModalEditarComponent } from '../modal-editar/modal-editar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 
