@@ -6,11 +6,11 @@
     <form [formGroup]="formProcesso" class="flex flex-col w-full py-6">
       <mat-form-field class="w-full">
         <mat-label class="text-zinc-900">Data de Visualização</mat-label>
-        <input matInput type="date" formControlName="dataVisualizacao" placeholder="dd/MM/yyyy">
+        <input matInput type="date" formControlName="dataVisualizacao" placeholder="dd/MM/yyyy" [disabled]="true">
       </mat-form-field>
       <mat-form-field class="w-full">
         <mat-label class="text-zinc-900">Data de Cadastro</mat-label>
-        <input matInput type="date" formControlName="dataCadastro" placeholder="dd/MM/yyyy">
+        <input matInput type="date" formControlName="dataCadastro" placeholder="dd/MM/yyyy" [disabled]="true">
         @if(formProcesso.controls['dataCadastro'].invalid ) {
           <mat-error>Data inválida</mat-error>
         }

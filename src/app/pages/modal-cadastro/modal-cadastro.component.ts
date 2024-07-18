@@ -61,6 +61,9 @@ export class ModalCadastroComponent {
       this.loadMunicipios(this.data.processo.uf);
       this.formProcesso.get('dataCadastro')?.disable();
       this.formProcesso.get('dataVisualizacao')?.disable();
+    } else {
+      this.formProcesso.get('dataCadastro')?.disable();
+      this.formProcesso.get('dataVisualizacao')?.disable();
     }
 
   }
@@ -69,8 +72,8 @@ export class ModalCadastroComponent {
     this.formProcesso = this.formBuilder.group({
       id: [null],
       npu: ['', [Validators.required]],
-      dataCadastro: ['', Validators.required],
-      dataVisualizacao: ['', null],
+      dataCadastro: [{ value: '', disabled: true }],
+      dataVisualizacao: [{ value: '', disabled: true }],
       municipio: ['', Validators.required],
       uf: ['', Validators.required]
     });
