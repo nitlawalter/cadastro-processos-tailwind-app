@@ -21,15 +21,12 @@ export class ProcessoService {
     return this.http.get<Processo>(`${this.apiUrl}/${id}`);
   }
 
-  createProcesso(processo: Processo): Observable<Processo> {
-    return this.http.post<Processo>(this.apiUrl, processo, {
-      headers: { 'Content-Type': 'application/json' }
-     });
+  createProcesso(formData: FormData): Observable<Processo> {
+    return this.http.post<Processo>(this.apiUrl, formData);
   }
 
-  updateProcesso(processo: Processo): Observable<Processo> {
-    console.log('updateProcesso =>', processo);
-    return this.http.put<Processo>(`${this.apiUrl}/${processo.id}`, processo, {
+  updateProcesso(formData: FormData, processo: Processo): Observable<Processo> {
+    return this.http.put<Processo>(`${this.apiUrl}/${processo.id}`, formData, {
       headers: { 'Content-Type': 'application/json' }
      });
   }

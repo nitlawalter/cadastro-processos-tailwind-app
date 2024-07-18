@@ -39,6 +39,7 @@ export class ModalCadastroComponent {
   estados: any[] = [];
   municipios: any[] = [];
   isEditMode: boolean = false;
+  selectedFile: File | null = null;
 
   constructor(
     private localidadeService: LocalidadeService,
@@ -102,16 +103,25 @@ export class ModalCadastroComponent {
     return npu.replace(/(\d{7})(\d{2})(\d{4})(\d)(\d{2})(\d{4})/, '$1-$2.$3.$4.$5.$6');
   }
 
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
   saveProcesso(): void {
     if (this.formProcesso.valid) {
+      const formData = new FormData();
       const processo = this.formProcesso.value;
       processo.npu = this.formatNpu(processo.npu);
-      console.log('Salvando processo:', processo);
-      console.log('Modo edição:', this.isEditMode);
+
+      formData.append('processoJson', JSON.stringify(processo));
+
+      if (this.selectedFile) {
+        formData.append('file', this.selectedFile);
+      }
+
       if(this.isEditMode) {
-        this.processoService.updateProcesso(processo).subscribe(
+        this.processoService.updateProcesso(formData, processo).subscribe(
           response => {
-            console.log('Processo atualizado com sucesso:', response);
             this.snackBar.open('Cadastro atualizado com sucesso!', 'Fechar', {
               horizontalPosition: 'right',
               verticalPosition: 'top',
@@ -120,7 +130,6 @@ export class ModalCadastroComponent {
             this.dialogRef.close(true);
           },
           error => {
-            console.error('Erro ao atualizar o processo:', error);
             this.snackBar.open('Erro ao atualizar o cadastro', 'Fechar', {
               horizontalPosition: 'right',
               verticalPosition: 'top',
@@ -129,9 +138,8 @@ export class ModalCadastroComponent {
           }
         );
       } else {
-        this.processoService.createProcesso(processo).subscribe(
+        this.processoService.createProcesso(formData).subscribe(
           response => {
-            console.log('Processo salvo com sucesso:', response);
             this.snackBar.open('Cadastro realizado com sucesso!', 'Fechar', {
               horizontalPosition: 'right',
               verticalPosition: 'top',
@@ -140,7 +148,6 @@ export class ModalCadastroComponent {
             this.dialogRef.close(true);
           },
           error => {
-            console.error('Erro ao salvar o processo:', error);
             this.snackBar.open('Erro ao salvar o processo', 'Fechar', {
               horizontalPosition: 'right',
               verticalPosition: 'top',
