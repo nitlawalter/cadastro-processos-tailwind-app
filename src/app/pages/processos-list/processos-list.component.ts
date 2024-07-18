@@ -49,7 +49,7 @@ export class ProcessosListComponent implements AfterViewInit {
       {
         data: {processo: obj},
         width: '900px',
-        height: '600px'
+        height: '700px'
       }
     )
   }
@@ -63,7 +63,7 @@ export class ProcessosListComponent implements AfterViewInit {
       {
         data: obj,
         width: '900px',
-        height: '600px'
+        height: '700px'
       }
     );
   }
@@ -79,7 +79,7 @@ export class ProcessosListComponent implements AfterViewInit {
     const dialogRef = this.dialog.open(ModalCadastroComponent,
       {
         width: '900px',
-        height: '600px'
+        height: '700px'
       }
     );
 

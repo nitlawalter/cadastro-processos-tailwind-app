@@ -25,6 +25,7 @@
         <input matInput disabled value="{{processo.uf}}">
       </mat-form-field>
     </form>
+    <a [href]="downloadLink" target="_blank" class="bg-blue-600 rounded p-2 hover:bg-blue-300">Baixar PDF</a>
     <div class="flex flex-row-reverse w-full space-x-4">
       <button mat-button class="bg-blue-900 p-2 text-slate-200 rounded hover:bg-blue-600"
       mat-dialog-close (onclick)="closeModal()">Fechar</button>

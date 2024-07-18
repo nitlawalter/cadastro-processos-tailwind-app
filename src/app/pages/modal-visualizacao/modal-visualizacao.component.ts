@@ -19,6 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class ModalVisualizacaoComponent {
 
   processo!: Processo;
+  downloadLink!: string;
 
   constructor(
     public dialogRef: MatDialogRef<ModalVisualizacaoComponent>,
@@ -27,7 +28,7 @@ export class ModalVisualizacaoComponent {
     @Inject(MAT_DIALOG_DATA) public data: Processo
   ) {
     this.processo = data;
-    console.log('Dados do processo: ', data);
+    this.downloadLink = `http://localhost:8080/api/v1/processos/${this.processo.id}/download`;
   }
 
   ngOnInit(): void {
