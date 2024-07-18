@@ -8,7 +8,7 @@
 
   <div class="mt-2">
     <mat-card class="!bg-zinc-200">
-      <table mat-table [dataSource]="dataSource" class="!bg-zinc-300">
+      <table mat-table [dataSource]="processos" class="!bg-zinc-300">
 
         <!-- Position Column -->
         <ng-container matColumnDef="npu">
@@ -53,6 +53,11 @@
                      class="!bg-zinc-300 !font-medium">
       </mat-paginator>
     </mat-card>
+  </div>
+
+  <div class="flex flex-row w-full space-x-2">
+    <button mat-button class="bg-blue-900 p-2 text-slate-200 rounded hover:bg-blue-600 mt-2"
+    (click)="openModalCadastro()">Novo Cadastro</button>
   </div>
 
 </main>

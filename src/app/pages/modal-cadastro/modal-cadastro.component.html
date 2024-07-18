@@ -3,33 +3,40 @@
 
     <h6 class="text-slate-800 font-medium">Cadastro de Processo</h6>
 
-    <form class="flex flex-col w-full py-6">
+    <form [formGroup]="formProcesso" class="flex flex-col w-full py-6">
       <mat-form-field class="w-full">
         <mat-label class="text-zinc-900">Data de Cadastro</mat-label>
-        <input matInput value="{{processo.dataCadastro | date:'dd/MM/yyyy'}}" [mask]="'00/00/0000'" placeholder="dd/MM/yyyy">
-      </mat-form-field>
-      <mat-form-field class="w-full">
-        <mat-label class="text-zinc-900">Data de Visualização</mat-label>
-        <input matInput disabled value="{{processo.dataVisualizacao | date:'dd/MM/yyyy'}}">
+        <input matInput type="date" formControlName="dataCadastro" placeholder="dd/MM/yyyy">
+        @if(formProcesso.controls['dataCadastro'].invalid ) {
+          <mat-error>Data inválida</mat-error>
+        }
       </mat-form-field>
       <mat-form-field class="w-full">
         <mat-label class="text-zinc-900">NPU</mat-label>
-        <input matInput value="{{processo.npu}}" mask="0000000-00.0000.0.00.0000" [showMaskTyped]="true">
-      </mat-form-field>
-      <mat-form-field class="w-full">
-        <mat-label class="text-zinc-900">Município</mat-label>
-        <input matInput value="{{processo.municipio}}">
+        <input matInput formControlName="npu" mask="0000000-00.0000.0.00.0000" [showMaskTyped]="true">
       </mat-form-field>
       <mat-form-field class="w-full">
         <mat-label class="text-zinc-900">Estado</mat-label>
-        <input matInput value="{{processo.uf}}">
+        <mat-select formControlName="uf" name="uf" (selectionChange)="onEstadoChange($event.value)">
+          @for (estado of estados; track estado) {
+            <mat-option [value]="estado.sigla">{{estado.nome}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label class="text-zinc-900">Município</mat-label>
+        <mat-select formControlName="municipio" name="municipio">
+          @for (municipio of municipios; track municipio) {
+            <mat-option [value]="municipio.nome">{{municipio.nome}}</mat-option>
+          }
+        </mat-select>
       </mat-form-field>
     </form>
     <div class="flex flex-row w-full space-x-2">
       <button mat-button class="bg-blue-900 p-2 text-slate-200 rounded hover:bg-blue-600"
-         mat-dialog-close (onclick)="closeModal()">Salvar</button>
+         mat-dialog-close (click)="saveProcesso()" [disabled]="!formProcesso.valid">Salvar</button>
       <button mat-button class="bg-blue-900 p-2 text-slate-200 rounded hover:bg-blue-600"
-         mat-dialog-close (onclick)="closeModal()">Fechar</button>
+         mat-dialog-close (click)="closeModal()">Fechar</button>
     </div>
   </div>
 </section>
