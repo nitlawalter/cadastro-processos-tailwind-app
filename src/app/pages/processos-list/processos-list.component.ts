@@ -10,6 +10,7 @@ import { ModalVisualizacaoComponent } from '../modal-visualizacao/modal-visualiz
 import { DatePipe } from '@angular/common';
 import { ModalCadastroComponent } from '../modal-cadastro/modal-cadastro.component';
 import { ModalEditarComponent } from '../modal-editar/modal-editar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class ProcessosListComponent implements AfterViewInit {
   constructor(
     private processoService: ProcessoService,
     public dialog: MatDialog,
-    private paginatorIntl: MatPaginatorIntl
+    private paginatorIntl: MatPaginatorIntl,
+    private snackBar: MatSnackBar,
   ) {
     this.paginatorIntl = getPortuguesePaginatorIntl();
   }
@@ -55,7 +57,26 @@ export class ProcessosListComponent implements AfterViewInit {
   }
 
   deletar(obj: any) {
-    console.log('delete');
+    if (confirm('Tem certeza que deseja deletar este processo?')) {
+      this.processoService.deleteProcesso(obj.id).subscribe(
+        () => {
+          this.snackBar.open('Cadastro deletado com sucesso!', 'Fechar', {
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            duration: 3000,
+          });
+          this.loadProcessos();
+        },
+        error => {
+          console.error('Erro ao deletar o processo:', error);
+          this.snackBar.open('Erro ao deletar o processo', 'Fechar', {
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            duration: 3000,
+          });
+        }
+      );
+    }
   }
 
   visualizar(obj: any) {
@@ -84,10 +105,8 @@ export class ProcessosListComponent implements AfterViewInit {
     );
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       console.log(result);
       if (result) {
-        console.log('Recarregando a lista de processos');
         this.loadProcessos();
       }
     });
